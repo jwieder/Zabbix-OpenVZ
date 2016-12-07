@@ -1,7 +1,7 @@
 # Description
 OpenVZ node monitoring through Zabbix.
 
-OpenVZ containers monitoring through Zabbix.
+OpenVZ containers monitoring through Zabbix. Allows for monitoring applications within containers without the need to install a Zabbix agent on container.
 
 Template "Template OpenVZ Node" finds all containers, creates new hosts and apply template "Template OpenVZ CT" on them.
 
@@ -10,7 +10,7 @@ perl, sudo, zabbix-agent.
 
 Installation
 ============
-1. copy vzdiscover.pl, ubcfault.sh and vzlist.sh to /etc/zabbix/
+1. copy vzdiscover.pl, ubcfault.sh, vzlist.sh and vzctl.sh to /etc/zabbix/
 2. copy zabbix_agentd.d/openvz.conf to /etc/zabbix/zabbix_agentd.d/
 3. copy sudoers.d/zabbix to /etc/sudoers.d/
 4. chown root:root /etc/sudoers.d/zabbix ; chmod 440 /etc/sudoers.d/zabbix
@@ -21,8 +21,7 @@ Installation
 9. enjoy.
 
 
-You can tune macros (like {$PROC_CT_WARN}) in template "Template OpenVZ CT",
- or set macros  to parent host (hardware node), it will be inherited to auto-discovered CT host. This is zabbix restriction.
+You can tune macros (like {$PROC_CT_WARN}) in template "Template OpenVZ CT", or set macros to parent host (hardware node). Macros set at the template or node level will be inherited to auto-discovered CT hosts. Unfortunately Macros cannot be customized individually for auto-discovered hosts.
 
 Install extend check inside CT
 ============
@@ -35,5 +34,5 @@ Install extend check inside CT
 
 PS
 ===========
-If you have problem with import template "Template OpenVZ Node.xml", try use template without discovery rule and add it later manually.
+If you have problem with import template "Template OpenVZ Node.xml", try using template without discovery rule and add it later manually.
 https://github.com/Lelik13a/Zabbix-OpenVZ/issues/2
