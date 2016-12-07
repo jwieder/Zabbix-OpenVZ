@@ -24,7 +24,7 @@ You can tune macros (like {$PROC_CT_WARN}) in template "Template OpenVZ CT", or 
 Container Monitor Option 1: Install advanced container checks on node
 ============
 Note: this approach allows Zabbix admins to extend the basic OpenVZ monitoring of CPU, RAM, UBC & disk usage provided by the Basic Install above. Open 1 does not require Zabbix agent to be installed within a container, the existence of a Zabbix user or group on the container, modifications of sudo permissions on the container or the creation of any files on the container. Everything takes place on the node. The downside of this approach is that it can be difficult to implement individualized checks for each container on the node - as presented here, every container on the node will be checked using the same shell command or script. If there is a high degree of application variability between containers on the same node, this can produce a large amount of UNAVAILABLE monitoring items when Zabbix attempts to check services on containers where those services do not exist or require unique input for monitoring. 
-============
+
 1. copy vzctl.sh to /etc/zabbix/
 2. modify /etc/zabbix/zabbix_agentd.d/openvz.conf to create custom UserParameter definitions for monitor keys.
 3. create monitors using the key like this: `openvz.ct.intcheck[{HOST.HOST},"/some/directory/some -command"]`
@@ -32,7 +32,7 @@ Note: this approach allows Zabbix admins to extend the basic OpenVZ monitoring o
 Container Monitor Option 2: Install extend check inside CT
 ============
 Note: this approach requires the creation of a file within each container, which may not be possible in all cases (e.g. hosting company with thousands of containers and no back door SSH key to allow automated file creation via chef, puppet, ansible, etc). The advantage of this approach is that it allows for per-host customized scripting of monitors. For example this approach is ideal in a situation where you wish to have a single monitor for web server availability but your containers may use Apache, Nginx, different linux flavor, etc.
-============
+
 1. copy ctextcheckdiscover.pl ctextcheck.sh to /etc/zabbix/
 2. create directory /etc/zabbix inside CT and copy ctextcheck/ct_check.sh there.
 3. edit ct_check.sh to create custom UserParameter definitions for monitor keys. 
